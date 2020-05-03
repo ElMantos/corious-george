@@ -1,0 +1,22 @@
+{
+  "name": "modern-js-seed",
+  "version": "1.0.0",
+  "description": "A simple yarn/webpack/babel/flow setup to start hacking anything you want to try",
+  "main": "index.js",
+  "repository": "https://github.com/keyvhinng/modern-js-seed.git",
+  "author": "Keyvhinng <keyvhinng@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack",
+    "develop": "webpack-dev-server --env.dev"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.6",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.0"
+  }
+}
