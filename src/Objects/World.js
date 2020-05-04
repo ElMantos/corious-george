@@ -39,13 +39,19 @@ class World {
   }
 
   renderProjectiles = () => {
-    this.liveEntities.forEach(e => {
-      console.log(e.projectiles);
-      e.projectiles.forEach(p => {
-        console.log(p);
-        this.updateEntityPosition(p);
+    this.liveEntities
+      .map(e => e.projectiles)
+      .forEach(projectile => {
+        projectile.forEach(p => {
+          for (let i = 0; i < this.liveEntities.length; i++) {
+            if (testCollisionBetweenEntities(this.liveEntities[i], p, true)) {
+              delete this.liveEntities[i];
+              return;
+            }
+          }
+          this.updateEntityPosition(p);
+        });
       });
-    });
   };
 
   updateEntityPosition = entity => {
@@ -78,6 +84,7 @@ class World {
   };
 
   repaint = () => {
+    console.log(this.liveEntities);
     this.clear();
     this.renderProjectiles();
     this.liveEntities.forEach(this.updateEntityPosition);

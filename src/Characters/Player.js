@@ -100,6 +100,10 @@ class Player extends LiveEntity {
         5
       )
     );
+    const currentIndex = this.projectiles.length - 1;
+    setTimeout(() => {
+      delete this.projectiles[currentIndex];
+    }, 2000);
   }
 }
 

@@ -12,7 +12,6 @@ class Projectile {
     this.id = ownerID;
     this.width = width;
     this.height = height;
-    console.log(width, height);
   }
 }
 
