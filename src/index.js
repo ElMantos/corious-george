@@ -12,7 +12,7 @@ ctx.canvas.width = 500; // window.innerWidth;
 ctx.canvas.height = 500; // window.innerHeight;
 
 const Player = createPlayer();
-
+Player.fillColor = "blue";
 const Controller = new ControllerClass({
   top: new MovementController(
     () => Player.move("top"),
@@ -40,7 +40,7 @@ const World = new WorldClass(ctx);
 const e = new LiveEntity("E", "e-1", 80, 300, 20, -5);
 const e2 = new LiveEntity("E2", "e-2", 200, 400, 15, 5);
 
-World.setLiveEntities([]);
+World.setLiveEntities([e, e2]);
 World.setPlayer(Player);
 
 const Game = new GameClass(World);
