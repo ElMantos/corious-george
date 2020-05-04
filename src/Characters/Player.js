@@ -99,8 +99,8 @@ class Player extends LiveEntity {
         this.posX,
         this.posY,
         this.aimDirection,
-        Math.cos((this.aimDirection / 180) * Math.PI) * 5,
-        Math.sin((this.aimDirection / 180) * Math.PI) * 5,
+        Math.cos((this.aimDirection / 180) * Math.PI) * 9,
+        Math.sin((this.aimDirection / 180) * Math.PI) * 9,
         this.id,
         5,
         5
