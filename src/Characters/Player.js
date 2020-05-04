@@ -1,4 +1,5 @@
 import LiveEntity from "./LiveEntity";
+import { Projectile } from "~/Projectiles";
 
 class Player extends LiveEntity {
   maxSpeed;
@@ -83,6 +84,22 @@ class Player extends LiveEntity {
 
   setController(controller) {
     this.controller = controller;
+  }
+
+  shoot() {
+    const angle = Math.random() * 360;
+    this.projectiles.push(
+      new Projectile(
+        this.posX,
+        this.posY,
+        angle,
+        Math.cos((angle / 180) * Math.PI) * 5,
+        Math.sin((angle / 180) * Math.PI) * 5,
+        this.id,
+        5,
+        5
+      )
+    );
   }
 }
 

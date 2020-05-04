@@ -32,11 +32,21 @@ class World {
     this.ctx.fillRect(
       entity.posX - entity.width / 2,
       entity.posY - entity.height / 2,
-      30,
-      30
+      entity.width,
+      entity.height
     );
     this.ctx.restore();
   }
+
+  renderProjectiles = () => {
+    this.liveEntities.forEach(e => {
+      console.log(e.projectiles);
+      e.projectiles.forEach(p => {
+        console.log(p);
+        this.updateEntityPosition(p);
+      });
+    });
+  };
 
   updateEntityPosition = entity => {
     if (
@@ -53,7 +63,6 @@ class World {
     }
 
     entity.updatePos();
-
     if (testCollisionBetweenEntities(entity, this.player)) {
       entity.setSpeedX(-entity.speedX);
       entity.setSpeedY(-entity.speedY);
@@ -70,6 +79,7 @@ class World {
 
   repaint = () => {
     this.clear();
+    this.renderProjectiles();
     this.liveEntities.forEach(this.updateEntityPosition);
   };
 }

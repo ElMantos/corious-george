@@ -3,14 +3,16 @@ class Controller {
   right;
   top;
   bottom;
+  e;
 
   shouldRun = false;
 
-  constructor({ left, right, top, bottom }) {
+  constructor({ left, right, top, bottom, e }) {
     this.left = left;
     this.right = right;
     this.top = top;
     this.bottom = bottom;
+    this.e = e;
   }
 
   handleMovement = key => {
@@ -31,6 +33,8 @@ class Controller {
       case "ArrowDown":
         this.bottom.run();
         break;
+      case "e":
+        this.e.run();
     }
   };
 

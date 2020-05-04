@@ -1,6 +1,6 @@
 class Game {
   world;
-  fps = 1000 / 7;
+  fps = 1000 / 30;
 
   constructor(world) {
     this.world = world;

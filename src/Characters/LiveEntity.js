@@ -1,3 +1,5 @@
+import { updatePos, setSpeedX, setSpeedY } from "~/Traits";
+
 class LiveEntity {
   name;
   posX;
@@ -8,6 +10,7 @@ class LiveEntity {
   width;
   strength = 5;
   fillColor = "green";
+  projectiles = [];
 
   constructor(name, id, posX, posY, speedX, speedY, height = 30, width = 30) {
     this.name = name;
@@ -20,11 +23,6 @@ class LiveEntity {
     this.width = width;
   }
 
-  updatePos() {
-    this.posX += this.speedX;
-    this.posY += this.speedY;
-  }
-
   setSpeedX(speed) {
     this.speedX = speed;
   }
@@ -33,5 +31,9 @@ class LiveEntity {
     this.speedY = speed;
   }
 }
+
+LiveEntity.prototype.updatePos = updatePos;
+LiveEntity.prototype.setSpeedX = setSpeedX;
+LiveEntity.prototype.setSpeedY = setSpeedY;
 
 export default LiveEntity;
