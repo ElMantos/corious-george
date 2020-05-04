@@ -84,7 +84,6 @@ class World {
   };
 
   repaint = () => {
-    console.log(this.liveEntities);
     this.clear();
     this.renderProjectiles();
     this.liveEntities.forEach(this.updateEntityPosition);

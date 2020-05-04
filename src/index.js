@@ -38,6 +38,10 @@ const Controller = new ControllerClass({
 
 window.onkeydown = Controller.run;
 
+document.getElementById("ctx").onmousemove = function(e) {
+  Player.setAimDirection(e.clientX, e.clientY);
+};
+
 window.onkeyup = Controller.stop;
 
 const World = new WorldClass(ctx);

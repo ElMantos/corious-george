@@ -9,6 +9,7 @@ class Player extends LiveEntity {
   maxSpeed;
   velocity;
   velocitySpeed;
+  aimDirection = 0;
 
   constructor(name, id, posX, posY, height, width) {
     super(name, id, posX, posY, 0, 0, height, width);
@@ -86,15 +87,20 @@ class Player extends LiveEntity {
     this.controller = controller;
   }
 
-  shoot() {
-    const angle = Math.random() * 360;
+  setAimDirection = (mouseX, mouseY) => {
+    this.aimDirection =
+      (Math.atan2(mouseY - this.posY, mouseX - this.posX) / Math.PI) * 180;
+    console.log(this.aimDirection);
+  };
+
+  shoot = () => {
     this.projectiles.push(
       new Projectile(
         this.posX,
         this.posY,
-        angle,
-        Math.cos((angle / 180) * Math.PI) * 5,
-        Math.sin((angle / 180) * Math.PI) * 5,
+        this.aimDirection,
+        Math.cos((this.aimDirection / 180) * Math.PI) * 5,
+        Math.sin((this.aimDirection / 180) * Math.PI) * 5,
         this.id,
         5,
         5
@@ -104,7 +110,7 @@ class Player extends LiveEntity {
     setTimeout(() => {
       delete this.projectiles[currentIndex];
     }, 2000);
-  }
+  };
 }
 
 export default Player;
