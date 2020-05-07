@@ -1,5 +1,7 @@
 import LiveEntity from "./LiveEntity";
 import { ManaBall } from "~/Projectiles";
+import { Indicator } from "~/Controllers";
+
 import playerSprites from "~/assets/sprites/hero.png";
 
 class Player extends LiveEntity {
@@ -19,6 +21,7 @@ class Player extends LiveEntity {
   frameX = 0;
   frameY = 0;
   spriteInterval;
+  regainingEnergy;
 
   constructor(name, id, posX, posY, height, width) {
     super(name, id, posX, posY, 0, 0, height, width);
@@ -26,11 +29,18 @@ class Player extends LiveEntity {
     this.velocity = 0;
     this.velocitySpeed = 1 / 10;
     this.health = 50;
+    this.energy = 50;
+    this.maxEnergy = 50;
     this.sprite = new Image(this.width, this.height);
     this.sprite.src = playerSprites;
+    this.healthIndicator = new Indicator("health", this.health);
+    this.energyIndicator = new Indicator("energy", this.energy);
   }
 
-  takeDamage = amount => (this.health -= amount);
+  takeDamage = amount => {
+    this.healthIndicator.setPercentage(this.health);
+    this.health -= amount;
+  };
 
   isAlive = () => this.health > 0;
 
@@ -142,7 +152,9 @@ class Player extends LiveEntity {
   };
 
   createProjectile = () => {
-    if (this.canShoot) {
+    if (this.canShoot && this.energy - ManaBall.energyRequired() >= 0) {
+      this.energy -= ManaBall.energyRequired();
+
       this.projectiles.push(
         new ManaBall(
           this.posX,
@@ -168,6 +180,26 @@ class Player extends LiveEntity {
       setTimeout(() => {
         this.canShoot = true;
       }, this.shootingSpeed - 10);
+    }
+    this.regainEnergy();
+
+    this.energyIndicator.setPercentage(this.energy);
+  };
+
+  regainEnergy = () => {
+    if (!this.regainingEnergy) {
+      console.log("setting interval");
+      const interval = setInterval(() => {
+        this.regainingEnergy = true;
+
+        if (this.energy >= this.maxEnergy) {
+          clearInterval(interval);
+          this.regainingEnergy = false;
+        } else {
+          this.energy += 1;
+          this.energyIndicator.setPercentage(this.energy);
+        }
+      }, 500);
     }
   };
 

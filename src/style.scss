@@ -1,7 +1,41 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   .world {
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-top: 30px;
+
+    .status {
+      display: flex;
+      margin-bottom: 15px;
+      .indicator {
+        height: 100%;
+        transition: all 0.3s;
+        border-radius: 10px;
+      }
+      .health {
+        height: 30px;
+        .indicator {
+          background-color: red;
+        }
+      }
+
+      .energy {
+        height: 30px;
+        .indicator {
+          float: right;
+          width: 100%;
+          background-color: blue;
+        }
+      }
+    }
+  }
+
+  .half {
+    width: 50%;
   }
 }

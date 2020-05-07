@@ -12,7 +12,17 @@
   </head>
   <body>
     <div class="world">
-      <canvas id="ctx" style="border: 1px solid #000000;"></canvas>
+      <div class="world_container">
+        <div class="status">
+          <div class="half health">
+            <div id="health" class="indicator"></div>
+          </div>
+          <div class="half energy">
+            <div id="energy" class="indicator"></div>
+          </div>
+        </div>
+        <canvas id="ctx" style="border: 1px solid #000000;"></canvas>
+      </div>
     </div>
   </body>
   <script src="./bundle.js" charset="utf-8"></script>

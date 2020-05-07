@@ -10,16 +10,20 @@ class ManaBall extends Projectile {
   duration = 1000;
   spriteInterval;
 
-  static getSpeedMultiplies() {
-    return 9;
-  }
-
   constructor(posX, posY, angle, speedX, speedY, ownerID, width, height) {
     super(posX, posY, angle, speedX, speedY, ownerID, width, height);
 
     this.sprite = new Image();
     this.sprite.src = projectileSprite;
     this.updateAnimation();
+  }
+
+  static getSpeedMultiplies() {
+    return 9;
+  }
+
+  static energyRequired() {
+    return 5;
   }
 
   getSpritesOffsetX = () => {

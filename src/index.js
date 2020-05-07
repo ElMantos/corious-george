@@ -11,7 +11,7 @@ import "./style.scss";
 let ctx = document.getElementById("ctx").getContext("2d");
 
 ctx.canvas.width = 1300; // window.innerWidth;
-ctx.canvas.height = 600; // window.innerHeight;
+ctx.canvas.height = 500; // window.innerHeight;
 
 const Player = createPlayer();
 Player.fillColor = "blue";
