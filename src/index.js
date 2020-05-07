@@ -6,6 +6,8 @@ import {
   MovementController
 } from "./Controllers";
 
+import "./style.scss";
+
 let ctx = document.getElementById("ctx").getContext("2d");
 
 ctx.canvas.width = 1300; // window.innerWidth;
