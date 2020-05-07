@@ -31,8 +31,8 @@ const Controller = new ControllerClass({
     () => Player.stop()
   ),
   e: new MovementController(
-    () => Player.shoot(),
-    () => null
+    () => Player.startShooting(),
+    () => Player.stopShooting()
   )
 });
 
@@ -47,10 +47,10 @@ window.onkeyup = Controller.stop;
 const World = new WorldClass(ctx);
 const e = new LiveEntity("E", "e-1", 80, 300, 10, -3);
 const e2 = new LiveEntity("E2", "e-2", 200, 400, 7, 3);
-// const e3 = new LiveEntity("E3", "e-3", 345, 200, 3, 1);
-// const e4 = new LiveEntity("E4", "e-4", 123, 400, 2, 4);
+const e3 = new LiveEntity("E3", "e-3", 345, 200, 3, 1);
+const e4 = new LiveEntity("E4", "e-4", 123, 400, 2, 4);
 
-World.setLiveEntities([e, e2]);
+World.setLiveEntities([]);
 World.setPlayer(Player);
 
 const Game = new GameClass(World);

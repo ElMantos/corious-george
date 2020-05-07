@@ -47,7 +47,7 @@ class Controller {
   };
 
   stop = () => {
-    [this.left, this.right, this.top, this.bottom].forEach(controller =>
+    [this.left, this.right, this.top, this.bottom, this.e].forEach(controller =>
       controller.stop()
     );
     this.shouldRun = false;

@@ -30,6 +30,8 @@ class LiveEntity {
   setSpeedY(speed) {
     this.speedY = speed;
   }
+
+  drawSprites() {}
 }
 
 LiveEntity.prototype.updatePos = updatePos;

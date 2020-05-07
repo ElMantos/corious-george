@@ -29,9 +29,14 @@ class World {
   drawEntity(entity) {
     this.ctx.save();
     this.ctx.fillStyle = entity.fillColor;
-    this.ctx.fillRect(
-      entity.posX - entity.width / 2,
-      entity.posY - entity.height / 2,
+    this.ctx.drawImage(
+      entity.sprite,
+      entity.getSpritesOffsetX(),
+      entity.getSpritesOffsetY(),
+      entity.width,
+      entity.height,
+      entity.posX,
+      entity.posY,
       entity.width,
       entity.height
     );
