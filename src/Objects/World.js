@@ -28,6 +28,7 @@ class World {
 
   drawEntity(entity) {
     this.ctx.save();
+
     this.ctx.fillStyle = entity.fillColor;
     this.ctx.drawImage(
       entity.sprite,

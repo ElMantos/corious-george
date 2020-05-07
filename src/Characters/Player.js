@@ -1,5 +1,5 @@
 import LiveEntity from "./LiveEntity";
-import { Projectile } from "~/Projectiles";
+import { ManaBall } from "~/Projectiles";
 import playerSprites from "~/assets/sprites/hero.png";
 
 class Player extends LiveEntity {
@@ -144,12 +144,14 @@ class Player extends LiveEntity {
   createProjectile = () => {
     if (this.canShoot) {
       this.projectiles.push(
-        new Projectile(
+        new ManaBall(
           this.posX,
           this.posY,
           this.aimDirection,
-          Math.cos((this.aimDirection / 180) * Math.PI) * 5,
-          Math.sin((this.aimDirection / 180) * Math.PI) * 5,
+          Math.cos((this.aimDirection / 180) * Math.PI) *
+            ManaBall.getSpeedMultiplies(),
+          Math.sin((this.aimDirection / 180) * Math.PI) *
+            ManaBall.getSpeedMultiplies(),
           this.id,
           5,
           5
@@ -158,8 +160,9 @@ class Player extends LiveEntity {
 
       const currentIndex = this.projectiles.length - 1;
       setTimeout(() => {
+        this.projectiles[currentIndex].clean();
         delete this.projectiles[currentIndex];
-      }, 2000);
+      }, this.projectiles[currentIndex].duration);
       this.canShoot = false;
 
       setTimeout(() => {
