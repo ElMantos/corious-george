@@ -1,5 +1,5 @@
 import { Game as GameClass, World as WorldClass } from "./Objects";
-import { LiveEntity } from "./Characters";
+import { EnemyGreen, EnemyRed } from "./Characters";
 import { createPlayer } from "./utils";
 import {
   Controller as ControllerClass,
@@ -45,12 +45,10 @@ document.getElementById("ctx").onmousemove = function(e) {
 window.onkeyup = Controller.stop;
 
 const World = new WorldClass(ctx);
-const e = new LiveEntity("E", "e-1", 80, 300, 10, -3);
-const e2 = new LiveEntity("E2", "e-2", 200, 400, 7, 3);
-const e3 = new LiveEntity("E3", "e-3", 345, 200, 3, 1);
-const e4 = new LiveEntity("E4", "e-4", 123, 400, 2, 4);
+const e = new EnemyRed("E", "e-1", 80, 300, 1, 3);
+const e2 = new EnemyGreen("E2", "e-2", 200, 400, 3, 1);
 
-World.setLiveEntities([]);
+World.setLiveEntities([e, e2]);
 World.setPlayer(Player);
 
 const Game = new GameClass(World);
