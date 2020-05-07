@@ -188,7 +188,6 @@ class Player extends LiveEntity {
 
   regainEnergy = () => {
     if (!this.regainingEnergy) {
-      console.log("setting interval");
       const interval = setInterval(() => {
         this.regainingEnergy = true;
 
