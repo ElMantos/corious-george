@@ -86,7 +86,6 @@ class World {
     }
 
     this.drawEntity(entity);
-    this.ctx.fillText(`HP: ${this.player.health}`, 10, 20);
   };
 
   repaint = () => {

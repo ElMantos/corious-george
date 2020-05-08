@@ -3,6 +3,7 @@
 }
 
 body {
+  background-color: rgb(168, 214, 168);
   .world {
     display: flex;
     justify-content: center;
@@ -20,7 +21,7 @@ body {
       .health {
         height: 30px;
         .indicator {
-          background-color: red;
+          background-color: rgb(202, 81, 81);
         }
       }
 
@@ -29,9 +30,24 @@ body {
         .indicator {
           float: right;
           width: 100%;
-          background-color: blue;
+          background-color: rgb(62, 93, 161);
         }
       }
+    }
+  }
+
+  .inventory {
+    display: flex;
+    justify-content: center;
+    :last-child {
+      margin-right: 0 !important;
+    }
+    .inventory-item {
+      width: 6rem;
+      height: 6rem;
+      border: 2px solid brown;
+      border-radius: 1rem;
+      margin-right: 1rem;
     }
   }
 
