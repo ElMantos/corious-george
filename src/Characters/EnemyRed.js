@@ -9,6 +9,7 @@ class EnemyRed extends Enemy {
     super(name, id, posX, posY, speedX, speedY, sprite);
 
     this.health = 15;
+    this.experience = 100;
   }
 }
 export default EnemyRed;

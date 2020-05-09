@@ -1,6 +1,6 @@
 import LiveEntity from "./LiveEntity";
 import { ManaBall } from "~/Projectiles";
-import { Indicator, StatusBar } from "~/Controllers";
+import { Indicator, StatusBar, Inventory } from "~/Controllers";
 
 import playerSprites from "~/assets/sprites/hero.png";
 
@@ -25,6 +25,14 @@ class Player extends LiveEntity {
   experience = 0;
   nextLevelExp = 100;
   level = 1;
+  inventoryCapacity = 7;
+  inventory;
+
+  equippedItems = {
+    helmet: null,
+    armor: null,
+    weapon: null
+  };
 
   constructor(name, id, posX, posY, height, width) {
     super(name, id, posX, posY, 0, 0, height, width);
@@ -37,8 +45,8 @@ class Player extends LiveEntity {
     this.strength = 5;
     this.sprite = new Image(this.width, this.height);
     this.sprite.src = playerSprites;
-    this.healthIndicator = new Indicator("health", this.health);
-    this.energyIndicator = new Indicator("energy", this.energy);
+    this.healthIndicator = new Indicator("health", this.maxHealth);
+    this.energyIndicator = new Indicator("energy", this.maxEnergy);
     this.statusIndicator = new StatusBar(
       this.experience,
       this.nextLevelExp,
@@ -49,6 +57,7 @@ class Player extends LiveEntity {
       "experience",
       "characteristics"
     );
+    this.inventory = new Inventory();
 
     this.statusIndicator.redraw();
   }
@@ -208,7 +217,7 @@ class Player extends LiveEntity {
       const interval = setInterval(() => {
         this.regainingEnergy = true;
 
-        if (this.energy >= this.maxEnergy) {
+        if (this.energy >= this.getMaxEnergy()) {
           clearInterval(interval);
           this.regainingEnergy = false;
         } else {
@@ -228,18 +237,26 @@ class Player extends LiveEntity {
     return this.height * this.frameY;
   };
 
-  addExp = exp => {
+  addExperience = exp => {
     this.experience += exp;
-
     this.updateLevel();
   };
 
   updateLevel = () => {
     if (this.experience >= this.nextLevelExp) {
       this.level++;
+      this.strength = this.strength + this.strength * 1.5;
+      this.maxEnergy = this.energy * 1.5;
+      this.energyIndicator.setMax(this.getMaxEnergy());
+      this.maxHealth = this.health * 1.5;
+      this.healthIndicator.setMax(this.maxHealth);
+      this.takeDamage(0);
+      if (this.shootingSpeed > 100) {
+        this.shootingSpeed -= 50;
+      }
       this.setNextLevelExp();
     }
-    this.repaint();
+    this.repaintStatus();
   };
 
   setNextLevelExp = () => {
@@ -248,11 +265,58 @@ class Player extends LiveEntity {
 
   repaintStatus = () => {
     this.statusIndicator.setCurrExp(this.experience);
-    this.statusIndicator.setCurrExp(this.nextLevelExp);
+    this.statusIndicator.setNextLevelExp(this.nextLevelExp);
     this.statusIndicator.setLevel(this.level);
     this.statusIndicator.setEnergy(this.energy);
     this.statusIndicator.setHealth(this.health);
+    this.statusIndicator.setStrength(this.strength);
     this.statusIndicator.redraw();
+  };
+
+  addItem = item => {
+    this.inventory.addItem(item);
+  };
+
+  toggleEquip = item => {
+    const currItem = this.equippedItems[item.type];
+    if (currItem?.id === item.id) {
+      this.equippedItems[item.type] = null;
+      currItem.setEquipped(false);
+    } else if (currItem) {
+      this.equippedItems[item.type] = item;
+      currItem.setEquipped(false);
+    } else {
+      this.equippedItems[item.type] = item;
+      item.setEquipped(true);
+    }
+
+    this.inventory.redraw();
+    this.resetStats();
+  };
+
+  resetStats = () => {
+    this.energyIndicator.setMax(this.getMaxEnergy());
+    this.energyIndicator.setPercentage(this.energy);
+    if (this.energy > this.maxEnergy) {
+      this.energy = this.maxEnergy;
+    }
+    this.regainEnergy();
+  };
+
+  getMaxHealth = () => {
+    let max = this.maxHealth;
+    if (this.equippedItems.armor) {
+      max += this.equippedItems.armor.bonus;
+    }
+    return max;
+  };
+
+  getMaxEnergy = () => {
+    let max = this.maxEnergy;
+    if (this.equippedItems.helmet) {
+      max += this.equippedItems.helmet.bonus;
+    }
+    return max;
   };
 }
 

@@ -7,6 +7,7 @@ import {
 } from "./Controllers";
 
 import "./style.scss";
+import { Armor, Helmet } from "./Items";
 
 let ctx = document.getElementById("ctx").getContext("2d");
 
@@ -49,9 +50,21 @@ window.onkeyup = Controller.stop;
 const World = new WorldClass(ctx);
 const e = new EnemyRed("E", "e-1", 80, 300, 1, 3);
 const e2 = new EnemyGreen("E2", "e-2", 200, 400, 3, 1);
+const e3 = new EnemyGreen("E3", "e-3", 200, 200, 2, 2);
 
-World.setLiveEntities([e, e2]);
+const helmet = new Helmet();
+const armor = new Armor();
+
+Player.addItem(helmet);
+Player.addItem(armor);
+
+// World.setLiveEntities([e, e2, e3]);
 World.setPlayer(Player);
+
+window.addEventListener("toggleEquip", e => {
+  console.log(e);
+  e.detail.toggleEquip(Player);
+});
 
 const Game = new GameClass(World);
 

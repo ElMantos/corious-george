@@ -58,7 +58,7 @@ class StatusBar {
     this.currExp = currExp;
   };
 
-  setNexLevelExp = nextLevelExp => {
+  setNextLevelExp = nextLevelExp => {
     this.nextLevelExp = nextLevelExp;
   };
 }

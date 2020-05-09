@@ -71,6 +71,7 @@ class World {
                 }
               }, 100);
               if (!this.liveEntities[i].alive()) {
+                this.player.addExperience(this.liveEntities[i].experience);
                 this.liveEntities[i].die();
               }
               return;

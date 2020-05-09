@@ -7,8 +7,14 @@ class Indicator {
   }
 
   setPercentage(currentAmount) {
-    this.indicator.style.width = `${(100 / this.max) * currentAmount}%`;
+    const width = (100 / this.max) * currentAmount;
+
+    this.indicator.style.width = `${width <= 100 ? width : 100}%`;
   }
+
+  setMax = max => {
+    this.max = max;
+  };
 }
 
 export default Indicator;
