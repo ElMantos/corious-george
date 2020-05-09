@@ -4,7 +4,7 @@ class Enemy extends LiveEntity {
   sprite;
   frameX = 0;
   frameY = 0;
-
+  isAlive = true;
   constructor(name, id, posX, posY, speedX, speedY, sprite) {
     super(name, id, posX, posY, speedX, speedY, 64, 64);
 
@@ -30,8 +30,8 @@ class Enemy extends LiveEntity {
 
         return;
       }
-      this.frameX = this.frameX < 8 ? this.frameX + 1 : 1;
 
+      this.frameX = this.frameX < 8 ? this.frameX + 1 : 1;
       if (this.speedX > 0) {
         this.frameY = 3;
       } else if (this.speedX < 0) {
