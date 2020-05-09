@@ -1,14 +1,43 @@
+$statusBoxSize: 6rem;
+
 * {
   box-sizing: border-box;
 }
 
 body {
   background-color: rgb(168, 214, 168);
+  .flex {
+    display: flex;
+  }
+
+  .justify-center {
+    justify-content: center;
+  }
   .world {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 30px;
+
+    .player-data {
+      width: $statusBoxSize * 2.5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 1.5rem;
+      color: #221e1e;
+      height: $statusBoxSize;
+      border: 2px solid brown;
+      border-radius: 1rem;
+
+      &#experience {
+        margin-right: auto;
+      }
+      &#characteristics {
+        margin-left: auto;
+      }
+    }
 
     .status {
       display: flex;
@@ -43,8 +72,8 @@ body {
       margin-right: 0 !important;
     }
     .inventory-item {
-      width: 6rem;
-      height: 6rem;
+      width: $statusBoxSize;
+      height: $statusBoxSize;
       border: 2px solid brown;
       border-radius: 1rem;
       margin-right: 1rem;

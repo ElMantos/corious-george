@@ -1,6 +1,6 @@
 import LiveEntity from "./LiveEntity";
 import { ManaBall } from "~/Projectiles";
-import { Indicator } from "~/Controllers";
+import { Indicator, StatusBar } from "~/Controllers";
 
 import playerSprites from "~/assets/sprites/hero.png";
 
@@ -22,6 +22,9 @@ class Player extends LiveEntity {
   frameY = 0;
   spriteInterval;
   regainingEnergy;
+  experience = 0;
+  nextLevelExp = 100;
+  level = 1;
 
   constructor(name, id, posX, posY, height, width) {
     super(name, id, posX, posY, 0, 0, height, width);
@@ -36,11 +39,24 @@ class Player extends LiveEntity {
     this.sprite.src = playerSprites;
     this.healthIndicator = new Indicator("health", this.health);
     this.energyIndicator = new Indicator("energy", this.energy);
+    this.statusIndicator = new StatusBar(
+      this.experience,
+      this.nextLevelExp,
+      this.health,
+      this.energy,
+      this.strength,
+      this.level,
+      "experience",
+      "characteristics"
+    );
+
+    this.statusIndicator.redraw();
   }
 
   takeDamage = amount => {
     this.healthIndicator.setPercentage(this.health);
     this.health -= amount;
+    this.repaintStatus();
   };
 
   isAlive = () => this.health > 0;
@@ -199,6 +215,7 @@ class Player extends LiveEntity {
           this.energy += 1;
           this.energyIndicator.setPercentage(this.energy);
         }
+        this.repaintStatus();
       }, 500);
     }
   };
@@ -209,6 +226,33 @@ class Player extends LiveEntity {
 
   getSpritesOffsetY = () => {
     return this.height * this.frameY;
+  };
+
+  addExp = exp => {
+    this.experience += exp;
+
+    this.updateLevel();
+  };
+
+  updateLevel = () => {
+    if (this.experience >= this.nextLevelExp) {
+      this.level++;
+      this.setNextLevelExp();
+    }
+    this.repaint();
+  };
+
+  setNextLevelExp = () => {
+    this.nextLevelExp = this.nextLevelExp + this.nextLevelExp * 1.5;
+  };
+
+  repaintStatus = () => {
+    this.statusIndicator.setCurrExp(this.experience);
+    this.statusIndicator.setCurrExp(this.nextLevelExp);
+    this.statusIndicator.setLevel(this.level);
+    this.statusIndicator.setEnergy(this.energy);
+    this.statusIndicator.setHealth(this.health);
+    this.statusIndicator.redraw();
   };
 }
 
