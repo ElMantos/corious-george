@@ -87,6 +87,7 @@ class Player extends LiveEntity {
   };
 
   moveTop = () => {
+    this.setAimDirection(-90);
     return this.startMovement(() => {
       this.velocity += this.velocitySpeed;
       this.speedY -= this.velocity;
@@ -94,6 +95,7 @@ class Player extends LiveEntity {
   };
 
   moveBottom = () => {
+    this.setAimDirection(90);
     return this.startMovement(() => {
       this.velocity += this.velocitySpeed;
       this.speedY += this.velocity;
@@ -101,6 +103,7 @@ class Player extends LiveEntity {
   };
 
   moveRight = () => {
+    this.setAimDirection(0);
     return this.startMovement(() => {
       this.velocity += this.velocitySpeed;
       this.speedX += this.velocity;
@@ -108,6 +111,7 @@ class Player extends LiveEntity {
   };
 
   moveLeft = () => {
+    this.setAimDirection(180);
     return this.startMovement(() => {
       this.velocity += this.velocitySpeed;
       this.speedX -= this.velocity;
@@ -159,9 +163,8 @@ class Player extends LiveEntity {
     this.controller = controller;
   }
 
-  setAimDirection = (mouseX, mouseY) => {
-    this.aimDirection =
-      (Math.atan2(mouseY - this.posY, mouseX - this.posX) / Math.PI) * 180;
+  setAimDirection = deg => {
+    this.aimDirection = deg;
   };
 
   startShooting = () => {

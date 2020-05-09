@@ -41,10 +41,6 @@ const Controller = new ControllerClass({
 
 window.onkeydown = Controller.run;
 
-document.getElementById("ctx").onmousemove = function(e) {
-  Player.setAimDirection(e.clientX, e.clientY);
-};
-
 window.onkeyup = Controller.stop;
 
 window.addEventListener("keypress", function(e) {
