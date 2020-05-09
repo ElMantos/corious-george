@@ -22,6 +22,7 @@ class Player extends LiveEntity {
   frameY = 0;
   spriteInterval;
   regainingEnergy;
+  regainingHealth;
   experience = 0;
   nextLevelExp = 100;
   level = 1;
@@ -42,6 +43,7 @@ class Player extends LiveEntity {
     this.health = 50;
     this.energy = 50;
     this.maxEnergy = 50;
+    this.maxHealth = 50;
     this.strength = 5;
     this.sprite = new Image(this.width, this.height);
     this.sprite.src = playerSprites;
@@ -65,6 +67,7 @@ class Player extends LiveEntity {
   takeDamage = amount => {
     this.healthIndicator.setPercentage(this.health);
     this.health -= amount;
+    this.regainHealth();
     this.repaintStatus();
   };
 
@@ -229,6 +232,23 @@ class Player extends LiveEntity {
     }
   };
 
+  regainHealth = () => {
+    if (!this.regainingHealth) {
+      const interval = setInterval(() => {
+        this.regainingHealth = true;
+
+        if (this.health >= this.getMaxHealth()) {
+          clearInterval(interval);
+          this.regainingHealth = false;
+        } else {
+          this.health += 1;
+          this.healthIndicator.setPercentage(this.health);
+        }
+        this.repaintStatus();
+      }, 3000);
+    }
+  };
+
   getSpritesOffsetX = () => {
     return this.width * this.frameX;
   };
@@ -249,7 +269,7 @@ class Player extends LiveEntity {
       this.maxEnergy = this.energy * 1.5;
       this.energyIndicator.setMax(this.getMaxEnergy());
       this.maxHealth = this.health * 1.5;
-      this.healthIndicator.setMax(this.maxHealth);
+      this.healthIndicator.setMax(this.getMaxHealth());
       this.takeDamage(0);
       if (this.shootingSpeed > 100) {
         this.shootingSpeed -= 50;
@@ -291,15 +311,21 @@ class Player extends LiveEntity {
     }
 
     this.inventory.redraw();
+    console.log(item);
+    console.log(this.equippedItems);
     this.resetStats();
   };
 
   resetStats = () => {
     this.energyIndicator.setMax(this.getMaxEnergy());
     this.energyIndicator.setPercentage(this.energy);
-    if (this.energy > this.maxEnergy) {
+    if (this.energy > this.getMaxEnergy()) {
       this.energy = this.maxEnergy;
     }
+    this.healthIndicator.setMax(this.getMaxHealth());
+    this.healthIndicator.setPercentage(this.health);
+
+    this.regainHealth();
     this.regainEnergy();
   };
 

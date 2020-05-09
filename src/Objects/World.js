@@ -83,15 +83,20 @@ class World {
   };
 
   updateEntityPosition = entity => {
+    const isLiveEntity =
+      Object.getPrototypeOf(entity.constructor).name === "LiveEntity" ||
+      Object.getPrototypeOf(entity.constructor).name === "Enemy";
     if (
-      entity.posX + entity.width / 2 <= 0 ||
-      entity.posX + entity.width / 2 >= this.width
+      (entity.posX + entity.width / 2 <= 0 ||
+        entity.posX + entity.width / 2 >= this.width) &&
+      isLiveEntity
     ) {
       entity.setSpeedX(-entity.speedX);
     }
     if (
-      entity.posY + entity.height / 2 <= 0 ||
-      entity.posY + entity.height / 2 >= this.height
+      (entity.posY + entity.height / 2 <= 0 ||
+        entity.posY + entity.height / 2 >= this.height) &&
+      isLiveEntity
     ) {
       entity.setSpeedY(-entity.speedY);
     }

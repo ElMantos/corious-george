@@ -58,7 +58,7 @@ const armor = new Armor();
 Player.addItem(helmet);
 Player.addItem(armor);
 
-// World.setLiveEntities([e, e2, e3]);
+World.setLiveEntities([e, e2, e3]);
 World.setPlayer(Player);
 
 window.addEventListener("toggleEquip", e => {
