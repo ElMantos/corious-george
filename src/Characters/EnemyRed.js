@@ -7,6 +7,8 @@ class EnemyRed extends Enemy {
     const sprite = new Image();
     sprite.src = enemySprite;
     super(name, id, posX, posY, speedX, speedY, sprite);
+
+    this.health = 15;
   }
 }
 export default EnemyRed;

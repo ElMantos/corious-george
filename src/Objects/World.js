@@ -50,8 +50,29 @@ class World {
       .forEach(projectile => {
         projectile.forEach(p => {
           for (let i = 0; i < this.liveEntities.length; i++) {
-            if (testCollisionBetweenEntities(this.liveEntities[i], p, true)) {
-              delete this.liveEntities[i];
+            if (
+              testCollisionBetweenEntities(this.liveEntities[i], p, true) &&
+              this.liveEntities[i].alive() &&
+              p.isEffective()
+            ) {
+              this.liveEntities[i].takeDamage(this.player.getStrength());
+              p.setEffective(false);
+              const tempX = this.liveEntities[i].speedX;
+              const tempY = this.liveEntities[i].speedY;
+              this.liveEntities[i].setSpeedX(p.speedX);
+              this.liveEntities[i].setSpeedY(p.speedY);
+              setTimeout(() => {
+                if (this.liveEntities[i].alive()) {
+                  this.liveEntities[i].setSpeedX(tempX);
+                  this.liveEntities[i].setSpeedY(tempY);
+                } else {
+                  this.liveEntities[i].setSpeedX(0);
+                  this.liveEntities[i].setSpeedY(0);
+                }
+              }, 100);
+              if (!this.liveEntities[i].alive()) {
+                this.liveEntities[i].die();
+              }
               return;
             }
           }
@@ -75,7 +96,7 @@ class World {
     }
 
     entity.updatePos();
-    if (testCollisionBetweenEntities(entity, this.player)) {
+    if (testCollisionBetweenEntities(entity, this.player) && entity.alive()) {
       entity.setSpeedX(-entity.speedX);
       entity.setSpeedY(-entity.speedY);
       setTimeout(() => {

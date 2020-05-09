@@ -22,6 +22,14 @@ class Enemy extends LiveEntity {
 
   updateAnimation = () => {
     this.spriteInterval = setInterval(() => {
+      if (!this.isAlive) {
+        if (this.frameX === 8) {
+          return;
+        }
+        this.frameX = this.frameX < 8 ? this.frameX + 1 : 1;
+
+        return;
+      }
       this.frameX = this.frameX < 8 ? this.frameX + 1 : 1;
 
       if (this.speedX > 0) {
@@ -35,5 +43,17 @@ class Enemy extends LiveEntity {
       }
     }, 100);
   };
+
+  die() {
+    this.speedX = 0;
+    this.speedY = 0;
+    this.frameY = 5;
+    this.frameX = 5;
+    this.isAlive = false;
+  }
+
+  takeDamage(amount) {
+    this.health -= amount;
+  }
 }
 export default Enemy;

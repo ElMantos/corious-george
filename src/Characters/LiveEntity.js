@@ -31,7 +31,13 @@ class LiveEntity {
     this.speedY = speed;
   }
 
-  drawSprites() {}
+  alive() {
+    return this.health > 0;
+  }
+
+  getStrength() {
+    return this.strength;
+  }
 }
 
 LiveEntity.prototype.updatePos = updatePos;

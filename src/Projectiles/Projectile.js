@@ -12,6 +12,15 @@ class Projectile {
     this.id = ownerID;
     this.width = width;
     this.height = height;
+    this.effective = true;
+  }
+
+  isEffective() {
+    return this.effective;
+  }
+
+  setEffective(val) {
+    this.effective = val;
   }
 }
 

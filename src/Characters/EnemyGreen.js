@@ -7,6 +7,8 @@ class EnemyGreen extends Enemy {
     const sprite = new Image();
     sprite.src = enemySprite;
     super(name, id, posX, posY, speedX, speedY, sprite);
+
+    this.health = 10;
   }
 }
 export default EnemyGreen;

@@ -31,6 +31,7 @@ class Player extends LiveEntity {
     this.health = 50;
     this.energy = 50;
     this.maxEnergy = 50;
+    this.strength = 5;
     this.sprite = new Image(this.width, this.height);
     this.sprite.src = playerSprites;
     this.healthIndicator = new Indicator("health", this.health);
