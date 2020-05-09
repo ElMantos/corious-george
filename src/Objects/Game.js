@@ -1,17 +1,24 @@
 class Game {
   world;
   fps = 1000 / 30;
-
+  isRunning = false;
   constructor(world) {
     this.world = world;
+    this.controls = document.querySelector(".pause");
   }
 
   run = () => {
     this.isRunning = true;
+    this.controls.style.top = "-1000px";
   };
 
   stop = () => {
     this.isRunning = false;
+    this.controls.style.top = "0px";
+  };
+
+  getIsRunning = () => {
+    return this.isRunning;
   };
 
   render = () => {

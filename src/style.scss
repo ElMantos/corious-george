@@ -71,7 +71,25 @@ body {
       }
     }
   }
-
+  .gameplay {
+    width: 1300px;
+    height: 500px;
+    position: relative;
+    margin-bottom: 0.5rem;
+    canvas {
+      width: 100%;
+      height: 100%;
+    }
+    .pause {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background-color: rgba(47, 46, 49, 0.9);
+      transition: all 0.3s;
+    }
+  }
   .inventory {
     display: flex;
     justify-content: center;

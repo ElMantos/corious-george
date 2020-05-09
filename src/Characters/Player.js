@@ -28,6 +28,7 @@ class Player extends LiveEntity {
   level = 1;
   inventoryCapacity = 7;
   inventory;
+  isGameRunning = false;
 
   equippedItems = {
     helmet: null,
@@ -219,6 +220,11 @@ class Player extends LiveEntity {
     if (!this.regainingEnergy) {
       const interval = setInterval(() => {
         this.regainingEnergy = true;
+        console.log(this.isGameRunning);
+
+        if (!this.isGameRunning) {
+          return;
+        }
 
         if (this.energy >= this.getMaxEnergy()) {
           clearInterval(interval);
@@ -236,6 +242,9 @@ class Player extends LiveEntity {
     if (!this.regainingHealth) {
       const interval = setInterval(() => {
         this.regainingHealth = true;
+        if (!this.isGameRunning) {
+          return;
+        }
 
         if (this.health >= this.getMaxHealth()) {
           clearInterval(interval);
@@ -343,6 +352,10 @@ class Player extends LiveEntity {
       max += this.equippedItems.helmet.bonus;
     }
     return max;
+  };
+
+  updateGameStatus = val => {
+    this.isGameRunning = val;
   };
 }
 

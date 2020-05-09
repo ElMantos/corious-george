@@ -47,6 +47,17 @@ document.getElementById("ctx").onmousemove = function(e) {
 
 window.onkeyup = Controller.stop;
 
+window.addEventListener("keypress", function(e) {
+  if (e.code === "KeyQ") {
+    if (Game.getIsRunning()) {
+      Game.stop();
+    } else {
+      Game.run();
+    }
+    Player.updateGameStatus(Game.getIsRunning());
+  }
+});
+
 const World = new WorldClass(ctx);
 const e = new EnemyRed("E", "e-1", 80, 300, 1, 3);
 const e2 = new EnemyGreen("E2", "e-2", 200, 400, 3, 1);
@@ -68,7 +79,4 @@ window.addEventListener("toggleEquip", e => {
 
 const Game = new GameClass(World);
 
-window.onmousedown = function() {
-  Game.run();
-};
 setInterval(Game.render, Game.fps);
