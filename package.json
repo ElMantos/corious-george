@@ -1,10 +1,10 @@
 {
-  "name": "modern-js-seed",
+  "name": "curious-george",
   "version": "1.0.0",
-  "description": "A simple yarn/webpack/babel/flow setup to start hacking anything you want to try",
+  "description": "Simple JS game",
   "main": "index.js",
-  "repository": "https://github.com/keyvhinng/modern-js-seed.git",
-  "author": "Keyvhinng <keyvhinng@gmail.com>",
+  "repository": "",
+  "author": "",
   "license": "MIT",
   "scripts": {
     "build": "webpack",
